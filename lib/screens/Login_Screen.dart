@@ -3,6 +3,7 @@ import 'package:catalog_app/utils/Our_Screens_Routes.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:velocity_x/velocity_x.dart';
 
 class LoginScreen extends StatefulWidget
 {
@@ -15,41 +16,43 @@ class LoginScreenState extends State<LoginScreen>
   String userName = "";
   bool changeButton = false;
   final _formKey = GlobalKey<FormState>();
+  var userNameController = TextEditingController();
 
   void moveToHome(BuildContext buildContext) async {
-    if (_formKey.currentState!.validate()) {
+   if( _formKey.currentState!.validate() ) {
       setState(() {
         changeButton = true;
       });
-      await Future.delayed(Duration(seconds: 1));
+      await Future.delayed(Duration(seconds: 1),);
       await Navigator.push(
-          context, MaterialPageRoute(builder: (context) => HomeScreen()));
+          context, MaterialPageRoute(builder: (buildContext) => HomeScreen()));
       setState(() {
         changeButton = false;
       });
-    }
+     }
   }
 
   @override
   Widget build(BuildContext buildContext)
   {
     return Material(
-      color: Colors.white,
-      child: SingleChildScrollView(
-        child: Column(
-          children: [
-            Wrap(
-              children: [
-                Container( width: 900, height: 350, child: Image.asset("assets/images/hey_welcome.png",fit: BoxFit.fill,), ),
-              ],
-            ),
-            SizedBox(height: 10,),
-            Text("Welcome $userName", style: TextStyle( fontWeight: FontWeight.bold, fontSize: 30, color: Colors.black87 ),),
-            SizedBox(height: 5,),
-            Padding(
-              padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 30),
-              child: Form(
-                key: _formKey,
+      // color: Colors.white,
+      color: buildContext.canvasColor,
+      child: Form(
+        key: _formKey,
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              Wrap(
+                children: [
+                  Container( width: 900, height: 350, child: Image.asset("assets/images/hey_welcome.png",fit: BoxFit.fill,), ),
+                ],
+              ),
+              SizedBox(height: 10,),
+              Text("Welcome $userName", style: TextStyle( fontWeight: FontWeight.bold, fontSize: 30, color: Colors.black87 ),),
+              SizedBox(height: 5,),
+              Padding(
+                padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 30),
                 child: Column(
                   children: [
                     TextFormField(
@@ -67,6 +70,7 @@ class LoginScreenState extends State<LoginScreen>
                           }
                         return null;
                       },
+                      controller: userNameController,
                       keyboardType: TextInputType.name,
                       textAlign: TextAlign.left,
                       spellCheckConfiguration: SpellCheckConfiguration(misspelledSelectionColor: Colors.red, spellCheckService: DefaultSpellCheckService()),
@@ -78,7 +82,7 @@ class LoginScreenState extends State<LoginScreen>
                       mouseCursor: MouseCursor.defer,
                       clipBehavior: Clip.antiAlias,
                       autofocus: true,
-                      focusNode: primaryFocus,
+                      // focusNode: _userNameFocusNode,
                       scribbleEnabled: true,
                       enabled: true,
                       autocorrect: true,
@@ -101,6 +105,7 @@ class LoginScreenState extends State<LoginScreen>
                         border: OutlineInputBorder(),
                         icon: Icon(Icons.lock),
                       ),
+                      // focusNode: _userPasswordFocusNode,
                       obscureText: true,
                       validator: (value){
                         if( value!.isEmpty )
@@ -128,29 +133,32 @@ class LoginScreenState extends State<LoginScreen>
                     //   ),
 
                     Material(
-                      color: Colors.black87,
-                      borderRadius: BorderRadius.circular( changeButton ? 20 : 8),
-                      child: InkWell(    // InkWell-Widget use to make a clickable widget.
+                      color: Colors.deepPurple,
+                      borderRadius: BorderRadius.circular( changeButton? 50 : 8),
+                      child:
+                      InkWell(  // InkWell-Widget use to make a clickable widget.
                         onTap: () => moveToHome(buildContext),
                         child: AnimatedContainer(
-                          duration: Duration( seconds: 1, ),
-                          width: changeButton ? 50 : 150,
+                          duration: Duration(seconds: 1),
+                          width: changeButton? 50 : 150,
                           height: 50,
                           alignment: Alignment.center,
-                          // decoration: BoxDecoration(
-                          //   color: Colors.black87,
-                          //   // shape: changeButton ? BoxShape.circle : BoxShape.rectangle,
-                          //   // borderRadius: BorderRadius.circular( changeButton ? 20 : 8),
-                          // ),
-                          child: changeButton ? Icon(Icons.done, color: Colors.white,) : Text("Login",style: TextStyle( fontSize: 19, fontWeight: FontWeight.bold, color: Colors.white ),),
+                          child: Center(child: changeButton ? Icon(Icons.done, color: Colors.white,) : Text("Login", style: TextStyle( fontSize: 15, fontWeight: FontWeight.bold, color: Colors.white, ),)),
+                          //decoration: BoxDecoration(
+                           // color: Colors.deepPurple,
+                            // shape: changeButton ? BoxShape.circle : BoxShape.rectangle,
+                            // borderRadius: BorderRadius.circular( changeButton? 50 : 8),
+                          //),
                         ),
                       ),
                     ),
+
+
                   ],
                 ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );

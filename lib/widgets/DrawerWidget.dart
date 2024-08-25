@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class DrawerWidget extends StatelessWidget
 {
@@ -10,7 +11,7 @@ class DrawerWidget extends StatelessWidget
       backgroundColor: Colors.white,
       elevation: 7,
       child: Container(
-        color: Colors.indigoAccent,
+        color: Colors.deepPurple,
         child: ListView(
           padding: EdgeInsets.zero,
           children: [
@@ -21,18 +22,18 @@ class DrawerWidget extends StatelessWidget
                   accountEmail: Text("afridi30@gmail.com"),
                   margin: EdgeInsets.zero,
                   decoration: BoxDecoration(
-                    color: Colors.black87,
-                    boxShadow: [
-                      BoxShadow(
-                        spreadRadius: 1, offset: Offset(1,1), blurRadius: 1, blurStyle: BlurStyle.outer, color: Colors.indigo
-                      ),
-                    ],
+                    color: Colors.deepPurple,
+                    // boxShadow: [
+                    //   BoxShadow(
+                    //     spreadRadius: 0.5, offset: Offset(1,1), blurRadius: 0.5, blurStyle: BlurStyle.inner,
+                    //   ),
+                    // ],
                     shape: BoxShape.rectangle,
                     borderRadius: BorderRadius.circular(7),
                     backgroundBlendMode: BlendMode.lighten,
-                    gradient: LinearGradient(
-                      colors: [ Colors.black87, Colors.indigoAccent ],
-                    ),
+                    // gradient: LinearGradient(
+                    //   colors: [ Colors.black87, Colors.indigoAccent ],
+                    // ),
                   ),
                   currentAccountPicture: CircleAvatar(
                     backgroundImage: NetworkImage(imageUrl),
@@ -43,7 +44,22 @@ class DrawerWidget extends StatelessWidget
             ListTile(
               leading: Icon(Icons.home, color: Colors.white,),
 
-              title: Text("Home", textScaleFactor: 1.2  , style: TextStyle( fontSize: 15, color: Colors.white ),),
+              title: Text("Home", textScaleFactor: 1.3 , style: TextStyle( fontSize: 15, color: Colors.white ),),
+            ),
+            ListTile(
+              leading: Icon(Icons.account_circle, color: Colors.white,),
+
+              title: Text("Profile", textScaleFactor: 1.3 , style: TextStyle( fontSize: 15, color: Colors.white ),),
+            ),
+            ListTile(
+              leading: Icon(Icons.email_outlined, color: Colors.white,),
+
+              title: Text("Email", textScaleFactor: 1.3 , style: TextStyle( fontSize: 15, color: Colors.white ),),
+            ),
+            ListTile(
+              leading: FaIcon(FontAwesomeIcons.circleInfo, color: Colors.white,),
+
+              title: Text("About Us", textScaleFactor: 1.3 , style: TextStyle( fontSize: 15, color: Colors.white ),),
             ),
           ],
         ),
